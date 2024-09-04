@@ -8,7 +8,7 @@ object tutorial1 {
 	method iniciar() {
 		game.addVisual(nido)
 		game.addVisual(silvestre)
-		game.addVisualCharacter(pepita)
+		//game.addVisualCharacter(pepita)
 	}
 
 }
