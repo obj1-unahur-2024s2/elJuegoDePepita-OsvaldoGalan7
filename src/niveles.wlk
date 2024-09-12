@@ -8,7 +8,7 @@ object tutorial1 {
 	method iniciar() {
 		game.addVisual(nido)
 		game.addVisual(silvestre)
-		//game.addVisualCharacter(pepita)
+		game.addVisualCharacter(pepita)
 	}
 
 }
@@ -16,8 +16,8 @@ object tutorial1 {
 object tutorial2 {
 
 	method iniciar() {
-		game.addVisual(manzana)
-		game.addVisual(alpiste)
+	//	game.addVisual(manzana) 
+	//	game.addVisual(alpiste) 
 		game.addVisual(nido)
 		game.addVisual(silvestre)
 		game.addVisual(pepita)
@@ -42,14 +42,42 @@ object tutorial3 {
 
 object config {
 
-	method configurarTeclas() {
-		keyboard.left().onPressDo({ pepita.irA(pepita.position().left(1))})
-		keyboard.right().onPressDo({ pepita.irA(pepita.position().right(1))})
-		// Completar para que se pueda mover arriba y abajo
-	}
+	
 
 	method configurarColisiones() {
 		game.onCollideDo(pepita, { algo => algo.teEncontro(pepita)})
+	}
+
+	method configurarTeclas(){
+		keyboard.left().onPressDo({
+			pepita.irA(pepita.position().left(1))
+		})
+
+		keyboard.right().onPressDo({
+			pepita.irA(pepita.position().right(1))
+		})
+
+		keyboard.up().onPressDo({
+			pepita.irA(pepita.position().up(1))
+		})
+
+		keyboard.down().onPressDo({
+			pepita.irA(pepita.position().down(1))
+		})
+
+		keyboard.m().onPressDo({
+			self.cambiarSeguidor()
+		})
+	}
+
+	method cambiarSeguidor(){
+		const seguidorActual = pepita.sseguidor()
+		const seguidorSiguiente = seguidorActual.siguiente()
+
+		seguidorSiguiente.position(seguidorActual.position())
+		game.removeVisual(seguidorActual)
+		game.addVisual(seguidorSiguiente)
+		pepita.seguidor(seguidorSiguiente)
 	}
 
 }
